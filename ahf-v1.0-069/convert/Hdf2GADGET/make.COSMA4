@@ -1,0 +1,67 @@
+# compiler options for cosma4
+
+# --------------------------- cache size
+CACHE      = 
+# --------------------------- cache size
+
+# --------------------------- fortran compiler
+FC         = $(MPIROOT)/bin/mpif90
+FCMPI      = $(MPIROOT)/bin/mpif90
+# debug
+FDEBUG     = -g -fbounds-check -ffixed-line-length-132
+# optimised
+FOPTIMIZED = -O -ffixed-line-length-132
+# double precision
+DP =  -xtypemap=real:64,integer:32 
+# single precision
+SP =  -xtypemap=real:32,integer:32
+# --------------------------- fortran compiler
+
+# random number generator
+RANDOMLIB  =
+RANDOM_LIB =
+RANDOM_MOD =
+
+# --------------------------- C compiler
+CC       =  $(MPIROOT)/bin/mpcc
+# debug
+CDEBUG       = -g
+# optimised
+COPTIMIZED   = -O
+# --------------------------- C compiler
+
+# --------------------------- libraries and includes
+# ... fftw
+FFTW_HOME = 
+FFTW_LIB  = 
+FFTW_INC  = 
+
+
+# ... mpi
+MPI_LIB  =  -lmpi
+MPI_INC  = 
+MPI_RLIB = 
+
+# hdf5
+HDF64           =  
+HDF5            =   /home/amuratov/programs/hdf5-1.8.11-linux-x86_64-shared/  -lhdf5
+HDF5INC         =  -I/opt/hdf5/intel/openmpi/ib/include/ -I/home/amuratov/programs/hdf5-1.8.11-linux-x86_64-shared/include -L/opt/hdf5/intel/openmpi/ib/lib /opt/hdf5/intel/openmpi/ib/include/ /opt/hdf5/intel/openmpi/ib/lib /opt/hdf5/intel/openmpi/ib -lhdf5
+HDF5LIB         = -lhdf5 -L/opt/hdf5/intel/openmpi/ib/lib -L/home/amuratov/programs/hdf5-1.8.11-linux-x86_64-shared/lib/ -lhdf5
+HDF5RLIB        =  -L/opt/hdf5/intel/openmpi/ib/lib -L/home/amuratov/programs/hdf5-1.8.11-linux-x86_64-shared/lib/ -lhdf5
+HDF5MOD         = -I$(HDF5HOME) opt/hdf5/intel/openmpi/ib/ -I/home/amuratov/programs/hdf5-1.8.11-linux-x86_64-shared -lhdf5
+
+# sprng (random number generator)
+HDF_WRAPPER     =  -L/opt/hdf5/intel/openmpi/ib/lib  -I/opt/hdf5/intel/openmpi/ib/include/ opt/hdf5/intel/openmpi/ib/lib -lhdf5 -L/home/amuratov/programs/hdf5-1.8.11-linux-x86_64-shared/lib
+HDF_WRAPPER_MOD = -L/opt/hdf5/intel/openmpi/ib/lib  -I/opt/hdf5/intel/openmpi/ib/include/ -lhdf5 -L/home/amuratov/programs/hdf5-1.8.11-linux-x86_64-shared/lib
+
+# sprng (random number generator)
+SPRNG_HOME       = 
+SPRNG_LIB        = 
+SPRNG_INC        = 
+OPTIONS_SPRNG    = 
+# --------------------------- libraries and includes
+
+LIB  = $(MPI_LIB) $(HDF5LIB) $(HDF_WRAPPER) -lhdf5 -lhdfwrapper -L/opt/hdf5/intel/openmpi/ib/lib opt/hdf5/intel/openmpi/ib/include
+RLIB = $(MPI_RLIB) $(HDF5RLIB)
+INC  = $(MPI_INC)
+MOD  = $(HDF_WRAPPER_MOD)
