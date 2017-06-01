@@ -1,25 +1,28 @@
 #!/bin/bash
-
+########################################################################
 # Input Arguments
+########################################################################
 
 # What simulation to use, and where to put the output
 snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metaldiff/m12i_res7000_md/output
 out_dir=/scratch/03057/zhafen/m12i_res7000_md/output
 
 # What snapshots to use
-snap_num_start=323
+snap_num_start=1
 snap_num_end=600
 snap_step=1
-
-# What steps should be done
-convert_snapshots=true
-find_halos=false
-find_merger_history=false
-simplify_and_smooth_halos=false
 
 # How many processors to use? (Remember to account for memory constraints)
 n_procs=16
 
+# What steps should be done
+convert_snapshots=false
+find_halos=true
+find_merger_history=true
+simplify_and_smooth_halos=true
+
+########################################################################
+# Pipeline Script
 ########################################################################
 
 # Stop on errors
