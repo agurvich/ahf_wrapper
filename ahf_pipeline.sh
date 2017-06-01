@@ -17,6 +17,9 @@ find_halos=true
 find_merger_history=true
 simplify_and_smooth_halos=true
 
+# How many processors to use? (Remember to account for memory constraints)
+n_procs=16
+
 ########################################################################
 
 # Stop on errors
@@ -60,17 +63,20 @@ if $find_halos; then
   # Make input files for AHF
   python findhalos_list.py $out_dir $snap_num_start $snap_num_end $snap_step
 
-  # Iterate over snapshots
-  for i in $( eval echo "{$snap_num_start..$snap_num_end..$snap_step}" )
-  do
-    printf -v padded_i "%03d" $i # Get a padded i, for consistent file names
-    echo Starting AHF for snap $padded_i
-    echo ./ahf-v1.0-069/bin/AHF-v1.0-069 $out_dir/AMIGA.input$i
-    ./ahf-v1.0-069/bin/AHF-v1.0-069 $out_dir/AMIGA.input$i > $out_dir/AMIGA_${padded_i}.out 2>&1 &
-  done
-  echo Running... Wait for completion... &
-  wait
-  echo Finished finding halos!
+  ## Iterate over snapshots
+  #for i in $( eval echo "{$snap_num_start..$snap_num_end..$snap_step}" )
+  #do
+  #  printf -v padded_i "%03d" $i # Get a padded i, for consistent file names
+  #  echo Starting AHF for snap $padded_i
+  #  echo ./ahf-v1.0-069/bin/AHF-v1.0-069 $out_dir/AMIGA.input$i
+  #  ./ahf-v1.0-069/bin/AHF-v1.0-069 $out_dir/AMIGA.input$i > $out_dir/AMIGA_${padded_i}.out 2>&1 &
+  #done
+  #echo Running... Wait for completion... &
+  #wait
+  #echo Finished finding halos!
+
+  # Run AHF
+  seq -f '%03g' $snap_num_start $snap_step $snap_num_end | xargs -n 1 -P $n_procs sh -c './ahf-v1.0-069/bin/AHF-v1.0-069 $out_dir/AMIGA.input$0 > $out_dir/AMIGA_$0.out 2>&1'
 
 else
   echo Skipping finding halos.

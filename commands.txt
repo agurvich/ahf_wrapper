@@ -1,0 +1,4 @@
+echo Hello world
+echo Goodbye world
+echo Goodbye cruel world
+
