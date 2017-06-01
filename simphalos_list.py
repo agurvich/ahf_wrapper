@@ -1,4 +1,5 @@
 import os
+import sys
 
 # Input arguments
 snap_dir = sys.argv[1]

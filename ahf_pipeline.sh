@@ -7,13 +7,13 @@ snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metaldiff/m12i_res7000_md/output
 out_dir=/scratch/03057/zhafen/m12i_res7000_md/output
 
 # What snapshots to use
-snap_num_start=380
+snap_num_start=323
 snap_num_end=600
-snap_step=10
+snap_step=1
 
 # What steps should be done
-convert_snapshots=false
-find_halos=true
+convert_snapshots=true
+find_halos=false
 find_merger_history=false
 simplify_and_smooth_halos=false
 
@@ -44,7 +44,7 @@ if $convert_snapshots; then
   echo Converting snapshots
   echo '########################################################################'
 
-  python convsnaps_list.py $snap_dir $out_dir $snap_num_start $snap_num_end $snap_step
+  seq $snap_num_start $snap_step $snap_num_end | xargs -n 1 -P $n_procs sh -c 'python convsnaps_list.py $0 $1 $2 $2 1' $snap_dir $out_dir
   echo Done converting snapshots!
   echo 
 
@@ -62,18 +62,6 @@ if $find_halos; then
 
   # Make input files for AHF
   python findhalos_list.py $out_dir $snap_num_start $snap_num_end $snap_step
-
-  ## Iterate over snapshots
-  #for i in $( eval echo "{$snap_num_start..$snap_num_end..$snap_step}" )
-  #do
-  #  printf -v padded_i "%03d" $i # Get a padded i, for consistent file names
-  #  echo Starting AHF for snap $padded_i
-  #  echo ./ahf-v1.0-069/bin/AHF-v1.0-069 $out_dir/AMIGA.input$i
-  #  ./ahf-v1.0-069/bin/AHF-v1.0-069 $out_dir/AMIGA.input$i > $out_dir/AMIGA_${padded_i}.out 2>&1 &
-  #done
-  #echo Running... Wait for completion... &
-  #wait
-  #echo Finished finding halos!
 
   # Run AHF.
   echo Now running AHF!
