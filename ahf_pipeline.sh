@@ -12,10 +12,10 @@ snap_num_end=600
 snap_step=10
 
 # What steps should be done
-convert_snapshots=true
+convert_snapshots=false
 find_halos=true
-find_merger_history=true
-simplify_and_smooth_halos=true
+find_merger_history=false
+simplify_and_smooth_halos=false
 
 # How many processors to use? (Remember to account for memory constraints)
 n_procs=16
@@ -75,8 +75,13 @@ if $find_halos; then
   #wait
   #echo Finished finding halos!
 
-  # Run AHF
-  seq -f '%03g' $snap_num_start $snap_step $snap_num_end | xargs -n 1 -P $n_procs sh -c './ahf-v1.0-069/bin/AHF-v1.0-069 $out_dir/AMIGA.input$0 > $out_dir/AMIGA_$0.out 2>&1'
+  # Run AHF.
+  echo Now running AHF!
+  seq -f '%03g' $snap_num_start $snap_step $snap_num_end | xargs -n 1 -P $n_procs sh -c './ahf-v1.0-069/bin/AHF-v1.0-069 $0/AMIGA.input$1 > $0/AMIGA_$1.out 2>&1' $out_dir
+  # The above command is really complicated, so let me explain below, to the best of my abilities.
+  # Everything to the left of the pipe is setting up a sequence of numbers, with some special formatting.
+  # To the right we have xargs, which receives the things to the left and starts up multiprocessing.
+  # After the sh in to the right is setting up its own mini command window. It receives the piped number as the second argument, the $1. The first argument then is the $out_dir.
 
 else
   echo Skipping finding halos.
