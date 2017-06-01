@@ -86,7 +86,7 @@ if $find_merger_history; then
 
   # Prepare the files for running
   python makeMTSnaps_list.py $out_dir $snap_num_start $snap_num_end $snap_step
-  python makeMtrace_ID_list.py $out_dir
+  python makeMtrace_ID.py $out_dir
 
   echo Switching to the output directory, $out_dir
   cd $out_dir
@@ -95,12 +95,6 @@ if $find_merger_history; then
   num_snaps=$( cat $out_dir/MTSnaps.txt | wc -l )
   echo Tracking for $num_snaps snapshots.
   $pipeline_location/ahf-v1.0-069/bin/MergerTree $num_snaps
-  # Check if it failed
-  if [ $? -eq 0 ]; then
-      echo OK
-  else
-      echo FAIL
-  fi
 
   # Run MergerTrace
   $pipeline_location/ahf-v1.0-069/bin/MergerTrace Mtrace_ID.txt MTSnaps.txt
@@ -122,8 +116,8 @@ if $simplify_and_smooth_halos; then
   echo Simplifying and Smoothing Halos
   echo '########################################################################'
 
-  # Simplify halos
-  python simphalos_list.py $out_dir
+  # Simplify and smooth halos
+  python simpallhalos.py $out_dir
   python smoothallhalos.py $out_dir
 
 else

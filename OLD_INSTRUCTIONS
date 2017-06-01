@@ -1,0 +1,73 @@
+I am attaching a zip file with Amiga Halo finder that i modified
+myself (I can explain to you exactly what I modified if you like, but
+it would take a while). 
+
+To compile, you will need to do
+
+Make AHF
+Make MergerTree
+Make MergerTrace
+
+I am attaching a sample AMIGA input file that i used for the halo
+finding for your simulations.
+
+to make a halo catalog for a single snapshot
+./bin/AHF AMIGA.INPUT189
+
+then when you have created halo catalog for each snapshot, you run:
+
+/home1/01708/cfaucher/repos/cafg_python/zooms-analysis/sasha_halo/ahf-v1.0-069/bin/MergerTree N
+
+This needs to be run in the same directory as the sim directory.
+
+where N is the number of snapshots for which you want to create merger
+trees. You need a file called MTSnaps.txt in the same directory with N
+lines. Each line in this file should be the path to the halo catalog
+"particles" file that Amiga creates for putput
+
+for example, my MTSnaps looks something like
+"
+Pep/snap080RPep.z4.500.AHF
+Pep/snap081RPep.z4.450.AHF
+Pep/snap082RPep.z4.400.AHF
+Pep/snap083RPep.z4.350.AHF
+Pep/snap084RPep.z4.300.AHF
+Pep/snap085RPep.z4.250.AHF
+"
+Where "Pep" is the subdirectory where I store the AMIGA outputs.
+ce_ID.txt MTSnaps.txt
+If this step succeeds, you want to run:
+
+/home1/01708/cfaucher/repos/cafg_python/zooms-analysis/sasha_halo/ahf-v1.0-069/bin/MergerTrace
+Mtrace_ID.txt MTSnaps.txt
+
+where Mtrace_ID.txt  is a file with the number of a halo which you
+want to follow from the first entry of MTSnaps.txt to the last entry. 
+
+for example, my Mtrace_ID.txt file looks like this: 
+"
+0
+1
+2
+3
+4
+5
+6
+"
+to trace the halos ranked from 0 to 6 in overdensity in the earliest
+snapshot listed in MTSnaps.txt 
+
+Also attaching the hdf5-to-snap python converter since AMIGA doesn't
+read HDF5.
+
+python convallsnaps.py snap_dir
+
+finally, to get to the file format that i sent you before, you need to
+run simplify_halo.py on the output files from MergerTrace to make them
+a bit more manageable. 
+
+simplify_halo.py snap_dir
+
+And then smooth halo files to avoid e.g. jumps in virial radius time
+time:
+python smoothallhalos.py
