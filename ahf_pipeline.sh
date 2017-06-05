@@ -17,8 +17,9 @@ n_procs=16
 
 # What steps should be done
 convert_snapshots=false
-find_halos=true
-find_merger_history=true
+find_halos=false
+find_merger_tree=false
+find_merger_trace=false
 simplify_and_smooth_halos=true
 
 ########################################################################
@@ -80,16 +81,12 @@ fi
 
 ########################################################################
 
-if $find_merger_history; then
+if $find_merger_tree; then
 
   echo 
   echo '########################################################################'
-  echo Running MergerTree and MergerTrace
+  echo Running MergerTree
   echo '########################################################################'
-
-  # Prepare the files for running
-  python makeMTSnaps_list.py $out_dir $snap_num_start $snap_num_end $snap_step
-  python makeMtrace_ID.py $out_dir
 
   echo Switching to the output directory, $out_dir
   cd $out_dir
@@ -99,15 +96,34 @@ if $find_merger_history; then
   echo Tracking for $num_snaps snapshots.
   $pipeline_location/ahf-v1.0-069/bin/MergerTree $num_snaps
 
+else
+  echo Skipping merger tree
+fi
+
+########################################################################
+
+if $find_merger_trace; then
+
+  echo 
+  echo '########################################################################'
+  echo Running MergerTrace
+  echo '########################################################################'
+
+  # Prepare MergerTrace for running
+  cd $pipeline_location
+  python makeMTSnaps_list.py $out_dir $snap_num_start $snap_num_end $snap_step
+  python makeMtrace_ID.py $out_dir
+
+  echo Switching to the output directory, $out_dir
+  cd $out_dir
+
   # Run MergerTrace
   $pipeline_location/ahf-v1.0-069/bin/MergerTrace Mtrace_ID.txt MTSnaps.txt
 
-  echo Done with MergerTree and MergerTrace.
-  echo Leaving output directory.
-  echo Returning to pipeline directory, $pipeline_location
+  echo Done with MergerTrace.
 
 else
-  echo Skipping MergerTree and MergerTrace.
+  echo Skipping MergerTrace.
 fi
 
 ########################################################################
@@ -118,6 +134,9 @@ if $simplify_and_smooth_halos; then
   echo '########################################################################'
   echo Simplifying and Smoothing Halos
   echo '########################################################################'
+
+  echo Moving to the pipeline location
+  cd $pipeline_location
 
   # Simplify and smooth halos
   python simpallhalos.py $out_dir
