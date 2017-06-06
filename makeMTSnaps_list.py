@@ -45,6 +45,9 @@ for file in onlyfiles:
 
 halo_files.sort()
 
+# Make it search backward
+halo_files.reverse()
+
 f = open(snap_dir + "/" + MTSnaps_file, "w")
 
 for file in halo_files:

@@ -19,7 +19,7 @@ n_procs=16
 convert_snapshots=false
 find_halos=false
 find_merger_tree=false
-find_merger_trace=false
+find_merger_trace=true
 simplify_and_smooth_halos=true
 
 ########################################################################
@@ -111,7 +111,9 @@ if $find_merger_trace; then
 
   # Prepare MergerTrace for running
   cd $pipeline_location
+  echo Running makeMTSnaps_list.py
   python makeMTSnaps_list.py $out_dir $snap_num_start $snap_num_end $snap_step
+  echo Running makeMtrace_ID.py
   python makeMtrace_ID.py $out_dir
 
   echo Switching to the output directory, $out_dir
