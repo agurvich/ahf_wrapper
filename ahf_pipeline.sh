@@ -8,7 +8,7 @@ snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metaldiff/m12i_res7000_md/output
 out_dir=/scratch/03057/zhafen/m12i_res7000_md/output
 
 # What snapshots to use
-snap_num_start=1
+snap_num_start=571
 snap_num_end=600
 snap_step=1
 
