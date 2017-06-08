@@ -104,14 +104,15 @@ char **argv;
     
     // copy header line from AHF_halos[0] (assuming they all have the same header)
     get_headerline(AHF_halos[0], haloline);
-    fprintf(fpout,"#added redshift as first column\n");
-    fprintf(fpout,"%s",haloline);
+    // Get rid of the comment format in front of the ID
+    memmove(haloline, haloline+1, strlen(haloline));
+    fprintf(fpout,"#redshift(0)\t %s",haloline);
     
     // loop over all files
     for(n=0; n<num_files-1; n++) {
       get_haloline(AHF_halos[n], ihalo, haloline);
       z = get_redshift(AHF_halos[n]);
-      fprintf(fpout,"%lf %s",z,haloline);
+      fprintf(fpout,"%f\t%s",z,haloline);
       ihalo = get_haloidx(mtree_idx[n], ihalo);
       fprintf(stderr,"%"PRIi64" ",ihalo);
       if(ihalo < 0)
@@ -120,7 +121,7 @@ char **argv;
     fprintf(stderr,"\n");
     get_haloline(AHF_halos[n], ihalo, haloline);
     z = get_redshift(AHF_halos[n]);
-    fprintf(fpout,"%lf %s",z,haloline);
+    fprintf(fpout,"%f\t%s",z,haloline);
     
     // close output file
     fclose(fpout);
@@ -139,8 +140,8 @@ char **argv;
   free(AHF_halos);
   free(mtree_idx);
   
-  printf("STOP\n");
-  return(1);
+  printf("DONE\n");
+  return(0);
 }
 
 /*==================================================================================================
