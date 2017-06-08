@@ -8,7 +8,7 @@ snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metaldiff/m12i_res7000_md/output
 out_dir=/scratch/03057/zhafen/m12i_res7000_md/output
 
 # What snapshots to use
-snap_num_start=571
+snap_num_start=570
 snap_num_end=600
 snap_step=1
 
@@ -20,7 +20,7 @@ convert_snapshots=false
 find_halos=false
 find_merger_tree=false
 find_merger_trace=true
-simplify_and_smooth_halos=true
+simplify_and_smooth_halos=false
 
 ########################################################################
 # Pipeline Script
@@ -88,6 +88,13 @@ if $find_merger_tree; then
   echo Running MergerTree
   echo '########################################################################'
 
+  # Prepare MergerTree for running
+  cd $pipeline_location
+  echo Running makeMTSnaps_list.py
+  python makeMTSnaps_list.py $out_dir $snap_num_start $snap_num_end $snap_step
+  echo Running makeMtrace_ID.py
+  python makeMtrace_ID.py $out_dir
+
   echo Switching to the output directory, $out_dir
   cd $out_dir
 
@@ -109,12 +116,14 @@ if $find_merger_trace; then
   echo Running MergerTrace
   echo '########################################################################'
 
-  # Prepare MergerTrace for running
-  cd $pipeline_location
-  echo Running makeMTSnaps_list.py
-  python makeMTSnaps_list.py $out_dir $snap_num_start $snap_num_end $snap_step
-  echo Running makeMtrace_ID.py
-  python makeMtrace_ID.py $out_dir
+  if ! $find_merger_tree; then
+    # Prepare MergerTrace for running
+    cd $pipeline_location
+    echo Running makeMTSnaps_list.py
+    python makeMTSnaps_list.py $out_dir $snap_num_start $snap_num_end $snap_step
+    echo Running makeMtrace_ID.py
+    python makeMtrace_ID.py $out_dir
+  fi
 
   echo Switching to the output directory, $out_dir
   cd $out_dir
