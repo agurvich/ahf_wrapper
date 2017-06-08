@@ -271,7 +271,7 @@ int main(int argc, char *argv[])
   if(OutFile)  free(OutFile);
   
   printf("finished\n");
-  return(1);
+  return(0);
 }
 
 

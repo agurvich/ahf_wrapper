@@ -8,8 +8,8 @@ snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metaldiff/m12i_res7000_md/output
 out_dir=/scratch/03057/zhafen/m12i_res7000_md/output
 
 # What snapshots to use
-snap_num_start=100
-snap_num_end=120
+snap_num_start=1
+snap_num_end=600
 snap_step=1
 
 # How many processors to use? (Remember to account for memory constraints)
@@ -18,7 +18,7 @@ n_procs=16
 # What steps should be done
 convert_snapshots=false
 find_halos=false
-find_merger_tree=false
+find_merger_tree=true
 find_merger_trace=true
 simplify_and_smooth_halos=false
 
