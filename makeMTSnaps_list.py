@@ -47,7 +47,6 @@ halo_files.sort()
 
 # Make it search backward
 halo_files.reverse()
-del halo_files[0]
 
 f = open(snap_dir + "/" + MTSnaps_file, "w")
 
