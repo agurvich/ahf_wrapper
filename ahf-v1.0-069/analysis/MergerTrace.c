@@ -263,9 +263,6 @@ void get_haloline(char *halofile, uint64_t id, char *line)
   FILE *fp;
   int64_t haloid;
 
-  // DEBUG
-  //fprintf( stderr, "Printing halo file... %s\n", halofile );
-  
   fp = fopen(halofile,"r");
   assert(fp != NULL);
   
