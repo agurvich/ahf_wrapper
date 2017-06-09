@@ -18,7 +18,7 @@ n_procs=16
 # What steps should be done
 convert_snapshots=false
 find_halos=false
-find_merger_tree=true
+find_merger_tree=false
 find_merger_trace=true
 simplify_and_smooth_halos=false
 
