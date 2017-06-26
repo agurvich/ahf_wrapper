@@ -4,23 +4,34 @@
 ########################################################################
 
 # What simulation to use, and where to put the output
-snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metaldiff/m12i_res7000_md/output
-out_dir=/scratch/03057/zhafen/m12i_res7000_md/output
+snap_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
+out_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
 
 # What snapshots to use
 snap_num_start=1
-snap_num_end=600
+snap_num_end=440
 snap_step=1
 
 # How many processors to use? (Remember to account for memory constraints)
-n_procs=16
+n_procs=24
 
 # What steps should be done
 convert_snapshots=false
 find_halos=false
 find_merger_tree=false
-find_merger_trace=true
-simplify_and_smooth_halos=false
+find_merger_trace=false
+smooth_halos=true
+
+########################################################################
+# Advanced options, for the smoothing step only
+########################################################################
+
+# Where is the file containing the snapshot times located?
+snap_times_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
+
+# What index to use for halo files?
+# Be careful about setting this! Only set to snum if you ran ahf consecutively for every snapshot
+index=snum
 
 ########################################################################
 # Pipeline Script
@@ -104,7 +115,7 @@ if $find_merger_tree; then
   $pipeline_location/ahf-v1.0-069/bin/MergerTree $num_snaps
 
 else
-  echo Skipping merger tree
+  echo Skipping MergerTree.
 fi
 
 ########################################################################
@@ -139,7 +150,7 @@ fi
 
 ########################################################################
 
-if $simplify_and_smooth_halos; then
+if $smooth_halos; then
 
   echo 
   echo '########################################################################'
@@ -149,12 +160,11 @@ if $simplify_and_smooth_halos; then
   echo Moving to the pipeline location
   cd $pipeline_location
 
-  # Simplify and smooth halos
-  python simpallhalos.py $out_dir
-  python smoothallhalos.py $out_dir
+  echo Smoothing halos
+  python smooth_halos.py $out_dir $snap_times_dir $index
 
 else
-  echo Skipping smoothing and simplifying.
+  echo Skipping smoothing.
 fi
 
 ########################################################################
