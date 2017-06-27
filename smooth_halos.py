@@ -25,6 +25,10 @@ if len( sys.argv ) <= 3:
 else:
   index = sys.argv[3]
 
+  # Get the right type
+  if index != 'snum':
+    index = int( index )
+
 ########################################################################
 # Perform the calculation.
 ########################################################################

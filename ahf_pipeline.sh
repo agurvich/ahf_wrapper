@@ -30,8 +30,10 @@ smooth_halos=true
 snap_times_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
 
 # What index to use for halo files?
-# Be careful about setting this! Only set to snum if you ran ahf consecutively for every snapshot
-index=snum
+# Be careful about setting this!
+# Should be set to $snap_num_end, but *only* if $snap_step == 1.
+# If these conditions aren't met, then smoothing currently isn't available.
+index=440
 
 ########################################################################
 # Pipeline Script
