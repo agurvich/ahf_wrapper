@@ -13,21 +13,22 @@ snap_num_end=440
 snap_step=1
 
 # How many processors to use? (Remember to account for memory constraints)
-n_procs=24
+n_procs=14
 
 # What steps should be done
 convert_snapshots=false
 find_halos=false
 find_merger_tree=false
 find_merger_trace=false
-smooth_halos=true
+smooth_halos=false
+get_ahf_halos_Adds=true
 
 ########################################################################
 # Advanced options, for the smoothing step only
 ########################################################################
 
-# Where is the file containing the snapshot times located?
-snap_times_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
+# Where are the metafiles (e.g. the file containing the snapshot times located)?
+metafile_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
 
 # What index to use for halo files?
 # Be careful about setting this!
@@ -163,10 +164,29 @@ if $smooth_halos; then
   cd $pipeline_location
 
   echo Smoothing halos
-  python smooth_halos.py $out_dir $snap_times_dir $index
+  python smooth_halos.py $out_dir $metafile_dir $index
 
 else
   echo Skipping smoothing.
+fi
+
+########################################################################
+
+if $get_ahf_halos_adds; then
+
+  echo 
+  echo '########################################################################'
+  echo Generating *.AHF_halos_add files
+  echo '########################################################################'
+
+  echo Moving to the pipeline location
+  cd $pipeline_location
+
+  echo Getting additional AHF_halos information.
+  seq $snap_num_start $snap_step $snap_num_end | xargs -n 1 -P $n_procs sh -c 'python get_ahf_halos_adds.py $0 $1 $2' $out_dir $metafile_dir
+
+else
+  echo Skipping getting additional AHF_halos information.
 fi
 
 ########################################################################

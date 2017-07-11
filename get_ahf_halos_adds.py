@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-'''Script for smoothing halo data, with arguments provided at command line.
+'''Script for getting additional information from the AHF halos files and saving those as additional files.
+This is primarily designed for getting the analytic concentration.
 
 @author: Zach Hafen
 @contact: zachary.h.hafen@gmail.com
@@ -18,21 +19,15 @@ import galaxy_diver.read_data.ahf as read_ahf
 sdir = sys.argv[1]
 
 # Get the directory where the snapshot times are located
-snapshot_times_dir = sys.argv[2]
+metafile_dir = sys.argv[2]
 
-if len( sys.argv ) <= 3:
-  index = None
-else:
-  index = sys.argv[3]
-
-  # Get the right type
-  if index != 'snum':
-    index = int( index )
+# Get the snapshots to process the AHF halo files for
+snum = int( sys.argv[3] )
 
 ########################################################################
 # Perform the calculation.
 ########################################################################
 
 ahf_reader = read_ahf.AHFReader( sdir )
-ahf_reader.save_smooth_mtree_halos( snapshot_times_dir, index=index, include_concentration=True )
+ahf_reader.save_ahf_halos_add( snum, metafile_dir )
 
