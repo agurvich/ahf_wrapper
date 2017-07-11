@@ -4,23 +4,23 @@
 ########################################################################
 
 # What simulation to use, and where to put the output
-snap_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
-out_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
+snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metaldiff/m12i_res7000_md/output
+out_dir=/scratch/03057/zhafen/m12i_res7000_md/output
 
 # What snapshots to use
 snap_num_start=1
-snap_num_end=440
+snap_num_end=600
 snap_step=1
 
 # How many processors to use? (Remember to account for memory constraints)
-n_procs=14
+n_procs=16
 
 # What steps should be done
 convert_snapshots=false
 find_halos=false
 find_merger_tree=false
 find_merger_trace=false
-smooth_halos=false
+smooth_halos=true
 get_ahf_halos_Adds=true
 
 ########################################################################
@@ -28,13 +28,13 @@ get_ahf_halos_Adds=true
 ########################################################################
 
 # Where are the metafiles (e.g. the file containing the snapshot times located)?
-metafile_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
+metafile_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metaldiff/m12i_res7000_md
 
 # What index to use for halo files?
 # Be careful about setting this!
 # Should be set to $snap_num_end, but *only* if $snap_step == 1.
 # If these conditions aren't met, then smoothing currently isn't available.
-index=440
+index=600
 
 ########################################################################
 # Pipeline Script
