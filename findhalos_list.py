@@ -4,11 +4,11 @@ import subprocess
 from HDF5converter import convert
 
 # Input arguments
-snap_dir = sys.argv[1]
+snap_dir = os.path.abspath( sys.argv[1] )
 
-snap_num_start = int(sys.argv[2])
-snap_num_end = int(sys.argv[3])
-snap_step = int(sys.argv[4])
+snap_num_start = int( sys.argv[2] )
+snap_num_end = int( sys.argv[3] )
+snap_step = int( sys.argv[4] )
 
 # Make the snap id list.
 snap_id_list = range(snap_num_start, snap_num_end + snap_step, snap_step)
@@ -22,7 +22,7 @@ for snap_id in snap_id_list:
   if len(snap_id_str)<3:
     snap_id_str = "0" + snap_id_str
 
-  file_case = snap_dir + "/snap_convertedshot_" + snap_id_str + ".hdf5"
+  file_case = snap_dir + "/snap_convertedshot_" + snap_id_str
   dir_case = snap_dir + "/snap_converteddir_" + snap_id_str
   if os.access(file_case, os.F_OK):
     rootdir = file_case

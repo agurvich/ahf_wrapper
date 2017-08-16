@@ -4,8 +4,8 @@
 ########################################################################
 
 # What simulation to use, and where to put the output
-snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metaldiff/m12i_res7000_md/output
-out_dir=/scratch/03057/zhafen/m12i_res7000_md/output
+snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/m12i_res7000/output
+out_dir=/scratch/03057/zhafen/m12i_res7000/output
 
 # What snapshots to use
 snap_num_start=1
@@ -13,22 +13,22 @@ snap_num_end=600
 snap_step=1
 
 # How many processors to use? (Remember to account for memory constraints)
-n_procs=16
+n_procs=20
 
 # What steps should be done
 convert_snapshots=false
-find_halos=false
-find_merger_tree=false
-find_merger_trace=false
+find_halos=true
+find_merger_tree=true
+find_merger_trace=true
 smooth_halos=true
-get_ahf_halos_Adds=true
+get_ahf_halos_adds=true
 
 ########################################################################
 # Advanced options, for the smoothing step only
 ########################################################################
 
 # Where are the metafiles (e.g. the file containing the snapshot times located)?
-metafile_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metaldiff/m12i_res7000_md
+metafile_dir=/scratch/projects/xsede/GalaxiesOnFIRE/m12m_res7000
 
 # What index to use for halo files?
 # Be careful about setting this!
