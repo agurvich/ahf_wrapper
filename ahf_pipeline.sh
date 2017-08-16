@@ -1,4 +1,20 @@
 #!/bin/bash
+
+#SBATCH --job-name=ahf_pipeline
+#SBATCH --partition=largemem
+## Stampede node has 16 processors & 32 GB
+## Except largemem nodes, which have 32 processors & 1 TB
+#SBATCH --nodes=1
+#SBATCH --ntasks=32
+#SBATCH --time=24:00:00
+#SBATCH --output=/scratch/03057/zhafen/m12i_res7000/halo/jobs/%j.out
+#SBATCH --error=/scratch/03057/zhafen/m12i_res7000/halo/jobs/%j.err
+#SBATCH --mail-user=zhafen@u.northwestern.edu
+#SBATCH --mail-type=begin
+#SBATCH --mail-type=fail
+#SBATCH --mail-type=end
+#SBATCH --account=TG-AST140023
+
 ########################################################################
 # Input Arguments
 ########################################################################
@@ -13,7 +29,7 @@ snap_num_end=600
 snap_step=1
 
 # How many processors to use? (Remember to account for memory constraints)
-n_procs=20
+n_procs=30
 
 # What steps should be done
 convert_snapshots=false
