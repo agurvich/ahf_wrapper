@@ -7,8 +7,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=32
 #SBATCH --time=24:00:00
-#SBATCH --output=/scratch/03057/zhafen/m12i_res7000/halo/jobs/%j.out
-#SBATCH --error=/scratch/03057/zhafen/m12i_res7000/halo/jobs/%j.err
+#SBATCH --output=/scratch/03057/zhafen/m12m_res7000/halo/jobs/%j.out
+#SBATCH --error=/scratch/03057/zhafen/m12m_res7000/halo/jobs/%j.err
 #SBATCH --mail-user=zhafen@u.northwestern.edu
 #SBATCH --mail-type=begin
 #SBATCH --mail-type=fail
@@ -20,8 +20,8 @@
 ########################################################################
 
 # What simulation to use, and where to put the output
-snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/m12i_res7000/output
-out_dir=/scratch/03057/zhafen/m12i_res7000/output
+snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/m12m_res7000/output
+out_dir=/scratch/03057/zhafen/m12m_res7000/output
 
 # What snapshots to use
 snap_num_start=1
@@ -104,6 +104,10 @@ if $find_halos; then
   # Everything to the left of the pipe is setting up a sequence of numbers, with some special formatting.
   # To the right we have xargs, which receives the things to the left and starts up multiprocessing.
   # After the sh in to the right is setting up its own mini command window. It receives the piped number as the second argument, the $1. The first argument then is the $out_dir.
+
+  echo Checking that all AHF snapshots were created successfully...
+  $pipeline_location/check_ahf_files_exist.py $out_dir $snap_num_start $snap_step $snap_num_end
+  echo Success!
 
 else
   echo Skipping finding halos.
