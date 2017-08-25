@@ -6,7 +6,7 @@
 ## Except largemem nodes, which have 32 processors & 1 TB
 #SBATCH --nodes=1
 #SBATCH --ntasks=32
-#SBATCH --time=24:00:00
+#SBATCH --time=36:00:00
 #SBATCH --output=/scratch/03057/zhafen/m12m_res7000/halo/jobs/%j.out
 #SBATCH --error=/scratch/03057/zhafen/m12m_res7000/halo/jobs/%j.err
 #SBATCH --mail-user=zhafen@u.northwestern.edu
@@ -24,15 +24,15 @@ snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/m12m_res7000/output
 out_dir=/scratch/03057/zhafen/m12m_res7000/output
 
 # What snapshots to use
-snap_num_start=1
-snap_num_end=600
+snap_num_start=55
+snap_num_end=162
 snap_step=1
 
 # How many processors to use? (Remember to account for memory constraints)
 n_procs=30
 
 # What steps should be done
-convert_snapshots=false
+convert_snapshots=true
 find_halos=true
 find_merger_tree=true
 find_merger_trace=true

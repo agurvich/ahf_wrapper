@@ -4,8 +4,8 @@
 ########################################################################
 
 # What simulation to use, and where to put the output
-ahf_data_dir=/scratch/03057/zhafen/m12f_res7000/output
-archive_dir=${ARCHIVER}:/home1/03057/zhafen/SCRATCH_stamp/m12f_res7000/halo
+ahf_data_dir=/scratch/03057/zhafen/m12i_res7000/output
+archive_dir=${ARCHIVER}:/home1/03057/zhafen/SCRATCH_stamp/m12i_res7000/halo
 
 filetypes_to_archive=("snap*parameter" "snap*AHF_halos*" "snap*AHF_mtree" "snap*AHF_mtree_idx" "snap*AHF_profiles" "snap*AHF_substructure" "halo*dat")
 archive_filenames=(parameter.tar AHF_halos.tar AHF_mtree.tar AHF_mtree_idx.tar AHF_profiles.tar AHF_substructure.tar mt_halo_files.tar)

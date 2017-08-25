@@ -1243,6 +1243,8 @@ local_get_block_pos(io_logging_t log,
 	float dummy;
 	uint64_t i;
 
+	io_logging_msg(log, INT32_C(1), "Getting block position...");
+
 	/* Figure out how many bytes are used for float storage */
 	SKIP;
 	if (blocksize >  (unsigned)INT_MAX) {
@@ -1363,6 +1365,8 @@ local_get_block_vel(io_logging_t log,
 	double fmomx, fmomy, fmomz;
 	float dummy;
 	uint64_t i;
+
+	io_logging_msg(log, INT32_C(1), "Getting block velocity...");
 
 	/* Figure out how many bytes are used for float storage */
 	SKIP;
@@ -1528,6 +1532,7 @@ local_get_block_mass(io_logging_t log,
 	float dummy;
 	uint64_t i, j;
 
+	io_logging_msg(log, INT32_C(1), "Getting block mass...");
 
 	/* We are going to need that a few times for book-keeping */
 #	define BOOK_KEEPING {\
@@ -1666,6 +1671,8 @@ local_get_block_u(io_logging_t log,
 	float dummy;
 	double fu;
 	int ptype;
+
+	io_logging_msg(log, INT32_C(1), "Getting block u...");
 
 	/* See if there is a gas block */
 	if (f->header->np[0] > 0) {
@@ -1808,6 +1815,8 @@ local_get_block_z(io_logging_t log,
       METALDIE;
     }
   }
+
+	io_logging_msg(log, INT32_C(1), "Getting block z...");
 
 	/* Start with the block */
 	SKIP;
@@ -1955,6 +1964,7 @@ local_get_block_age(io_logging_t log,
       METALDIE;
     }
   }
+	io_logging_msg(log, INT32_C(1), "Getting block age...");
 
 	/* Start with the block */
 	SKIP;
