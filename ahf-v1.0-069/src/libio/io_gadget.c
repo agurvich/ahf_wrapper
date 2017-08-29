@@ -435,6 +435,7 @@ io_gadget_readpart_raw(io_logging_t log,
     return UINT64_C(0);
    }
 #endif
+
   
 	/* Check if we actually have to do something */
 	if ( (f == NULL) || (f->header == NULL) )
@@ -449,6 +450,8 @@ io_gadget_readpart_raw(io_logging_t log,
 	if (f->ver == 2)
 		skipsize += (sizeof(int) * 3 + 4*sizeof(char));
 	fseek(f->file, skipsize, SEEK_SET);
+
+        io_logging_msg(log,INT32_C(1),"Working with file %s",f->fname);
 
 	/* Positions */
 	VERIFY_BLOCK("POS ");
