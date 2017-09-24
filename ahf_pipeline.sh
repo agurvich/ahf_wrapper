@@ -24,17 +24,17 @@ snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/m12m_res7000/output
 out_dir=/scratch/03057/zhafen/m12m_res7000/output
 
 # What snapshots to use
-snap_num_start=55
-snap_num_end=162
+snap_num_start=1
+snap_num_end=600
 snap_step=1
 
 # How many processors to use? (Remember to account for memory constraints)
 n_procs=30
 
 # What steps should be done
-convert_snapshots=true
-find_halos=true
-find_merger_tree=true
+convert_snapshots=false
+find_halos=false
+find_merger_tree=false
 find_merger_trace=true
 smooth_halos=true
 get_ahf_halos_adds=true
