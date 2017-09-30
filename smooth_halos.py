@@ -8,7 +8,7 @@
 
 import sys
 
-import galaxy_diver.read_data.ahf as read_ahf
+import galaxy_diver.analyze_data.ahf as analyze_ahf
 
 ########################################################################
 # Input Paramaters
@@ -33,6 +33,6 @@ else:
 # Perform the calculation.
 ########################################################################
 
-ahf_reader = read_ahf.AHFReader( sdir )
-ahf_reader.save_smooth_mtree_halos( snapshot_times_dir, index=index, include_concentration=True )
+ahf_updater = analyze_ahf.AHFUpdater( sdir )
+ahf_updater.save_smooth_mtree_halos( snapshot_times_dir, index=index, )
 

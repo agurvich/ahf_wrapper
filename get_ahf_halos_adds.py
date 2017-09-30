@@ -9,7 +9,7 @@ This is primarily designed for getting the analytic concentration.
 
 import sys
 
-import galaxy_diver.read_data.ahf as read_ahf
+import galaxy_diver.analyze_data.ahf as analyze_ahf
 
 ########################################################################
 # Input Paramaters
@@ -18,24 +18,27 @@ import galaxy_diver.read_data.ahf as read_ahf
 # Get the directory the AHF data is in
 sdir = sys.argv[1]
 
-# Get the snapshots to process the AHF halo files for
-snum = int( sys.argv[2] )
+kwargs = {
 
-# Get the directory where the snapshot times are located
-metafile_dir = sys.argv[3]
+  # Get the snapshots to process the AHF halo files for
+  'snum' : int( sys.argv[2] ),
 
-radii_mass_fractions = [ 0.5, 0.75, 0.99 ]
+  # Get the directory where the snapshot times are located
+  'metafile_dir' : sys.argv[3],
 
-simulation_data_dir = sys.argv[4]
+  'radii_mass_fractions' : [ 0.5, 0.75, 0.99 ],
 
-galaxy_cut = float( sys.argv[5] )
+  'simulation_data_dir' : sys.argv[4],
 
-length_scale = sys.argv[6]
+  'galaxy_cut' : float( sys.argv[5] ),
+
+  'length_scale' : sys.argv[6],
+}
 
 ########################################################################
 # Perform the calculation.
 ########################################################################
 
-ahf_reader = read_ahf.AHFReader( sdir )
-ahf_reader.save_ahf_halos_add( snum, metafile_dir )
+ahf_updater = analyze_ahf.AHFUpdater( sdir )
+ahf_updater.save_ahf_halos_add( **kwargs )
 

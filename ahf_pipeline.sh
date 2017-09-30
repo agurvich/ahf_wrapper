@@ -20,12 +20,12 @@
 ########################################################################
 
 # What simulation to use, and where to put the output
-snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/m12m_res7000/output
-out_dir=/scratch/03057/zhafen/m12m_res7000/output
+snap_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
+out_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
 
 # What snapshots to use
 snap_num_start=1
-snap_num_end=600
+snap_num_end=440
 snap_step=1
 
 # How many processors to use? (Remember to account for memory constraints)
@@ -35,22 +35,26 @@ n_procs=30
 convert_snapshots=false
 find_halos=false
 find_merger_tree=false
-find_merger_trace=true
+find_merger_trace=false
+get_ahf_halos_adds=false
 smooth_halos=true
-get_ahf_halos_adds=true
 
 ########################################################################
-# Advanced options, for the smoothing step only
+# Advanced options, for adding to the AHF data
 ########################################################################
 
 # Where are the metafiles (e.g. the file containing the snapshot times located)?
-metafile_dir=/scratch/projects/xsede/GalaxiesOnFIRE/m12m_res7000
+metafile_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
+
+# When getting the effective radii, we use the stellar mass inside galaxy_cut*length_scale of the halo.
+galaxy_cut=0.15
+length_scale=R_vir
 
 # What index to use for halo files?
 # Be careful about setting this!
 # Should be set to $snap_num_end, but *only* if $snap_step == 1.
 # If these conditions aren't met, then smoothing currently isn't available.
-index=600
+index=$snap_num_end
 
 ########################################################################
 # Pipeline Script
@@ -173,6 +177,25 @@ fi
 
 ########################################################################
 
+if $get_ahf_halos_adds; then
+
+  echo 
+  echo '########################################################################'
+  echo Generating *.AHF_halos_add files
+  echo '########################################################################'
+
+  echo Moving to the pipeline location
+  cd $pipeline_location
+
+  echo Getting additional AHF_halos information.
+  seq $snap_num_start $snap_step $snap_num_end | xargs -n 1 -P $n_procs sh -c 'python get_ahf_halos_adds.py $0 $5 $1 $2 $3 $4' $out_dir $metafile_dir $snap_dir $galaxy_cut $length_scale
+
+else
+  echo Skipping getting additional AHF_halos information.
+fi
+
+########################################################################
+
 if $smooth_halos; then
 
   echo 
@@ -188,25 +211,6 @@ if $smooth_halos; then
 
 else
   echo Skipping smoothing.
-fi
-
-########################################################################
-
-if $get_ahf_halos_adds; then
-
-  echo 
-  echo '########################################################################'
-  echo Generating *.AHF_halos_add files
-  echo '########################################################################'
-
-  echo Moving to the pipeline location
-  cd $pipeline_location
-
-  echo Getting additional AHF_halos information.
-  seq $snap_num_start $snap_step $snap_num_end | xargs -n 1 -P $n_procs sh -c 'python get_ahf_halos_adds.py $0 $1 $2' $out_dir $metafile_dir
-
-else
-  echo Skipping getting additional AHF_halos information.
 fi
 
 ########################################################################
