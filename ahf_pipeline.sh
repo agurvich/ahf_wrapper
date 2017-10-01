@@ -36,7 +36,7 @@ convert_snapshots=false
 find_halos=false
 find_merger_tree=false
 find_merger_trace=false
-get_ahf_halos_adds=false
+get_ahf_halos_adds=true
 smooth_halos=true
 
 ########################################################################
