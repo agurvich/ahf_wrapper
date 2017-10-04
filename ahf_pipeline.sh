@@ -7,8 +7,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=32
 #SBATCH --time=36:00:00
-#SBATCH --output=/scratch/03057/zhafen/m12m_res7000/halo/jobs/%j.out
-#SBATCH --error=/scratch/03057/zhafen/m12m_res7000/halo/jobs/%j.err
+#SBATCH --output=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3/halo_0.2Rvir/jobs/%j.out
+#SBATCH --error=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3/halo_0.2Rvir/jobs/%j.err
 #SBATCH --mail-user=zhafen@u.northwestern.edu
 #SBATCH --mail-type=begin
 #SBATCH --mail-type=fail
@@ -21,7 +21,7 @@
 
 # What simulation to use, and where to put the output
 snap_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
-out_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
+out_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3/halo_0.2Rvir
 
 # What snapshots to use
 snap_num_start=1
@@ -47,7 +47,7 @@ smooth_halos=true
 metafile_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
 
 # When getting the effective radii, we use the stellar mass inside galaxy_cut*length_scale of the halo.
-galaxy_cut=0.15
+galaxy_cut=0.2
 length_scale=R_vir
 
 # What index to use for halo files?

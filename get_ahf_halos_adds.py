@@ -26,7 +26,7 @@ kwargs = {
   # Get the directory where the snapshot times are located
   'metafile_dir' : sys.argv[3],
 
-  'radii_mass_fractions' : [ 0.5, 0.75, 0.99 ],
+  'radii_mass_fractions' : [ 0.5, 0.75, 0.9, 0.95, 0.99 ],
 
   'simulation_data_dir' : sys.argv[4],
 
