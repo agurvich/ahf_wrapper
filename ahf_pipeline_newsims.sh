@@ -7,8 +7,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=32
 #SBATCH --time=36:00:00
-#SBATCH --output=/scratch/03057/zhafen/m12i_res7000/halo/jobs/%j.out
-#SBATCH --error=/scratch/03057/zhafen/m12i_res7000/halo/jobs/%j.err
+#SBATCH --output=/scratch/03057/zhafen/m12m_res7000/halo/jobs/%j.out
+#SBATCH --error=/scratch/03057/zhafen/m12m_res7000/halo/jobs/%j.err
 #SBATCH --mail-user=zhafen@u.northwestern.edu
 #SBATCH --mail-type=begin
 #SBATCH --mail-type=fail
@@ -20,16 +20,16 @@
 ########################################################################
 
 # What simulation to use, and where to put the output
-snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/m12i_res7000/output
-out_dir=/scratch/03057/zhafen/m12i_res7000/output
+snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/m12m_res7000/output
+out_dir=/scratch/03057/zhafen/m12m_res7000/output
 
 # What snapshots to use
-snap_num_start=1
+snap_num_start=500
 snap_num_end=600
 snap_step=1
 
 # How many processors to use? (Remember to account for memory constraints)
-n_procs=30
+n_procs=5
 
 # What steps should be done
 convert_snapshots=false
@@ -44,7 +44,7 @@ smooth_halos=true
 ########################################################################
 
 # Where are the metafiles (e.g. the file containing the snapshot times located)?
-metafile_dir=/scratch/projects/xsede/GalaxiesOnFIRE/m12i_res7000
+metafile_dir=/scratch/projects/xsede/GalaxiesOnFIRE/m12m_res7000
 
 # When getting the effective radii, we use the stellar mass inside galaxy_cut*length_scale of the halo.
 galaxy_cut=0.15
