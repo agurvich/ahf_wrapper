@@ -9,7 +9,7 @@ This is primarily designed for getting the analytic concentration.
 
 import sys
 
-import galaxy_diver.analyze_data.ahf as analyze_ahf
+import galaxy_diver.analyze_data.ahf_updater as analyze_ahf
 
 ########################################################################
 # Input Paramaters
@@ -28,7 +28,7 @@ mass_radii_kwargs = {
 # Perform the calculation.
 ########################################################################
 
-ahf_updater = analyze_ahf.AHFUpdater( sdir )
+ahf_updater = analyze_ahf.HaloUpdater( sdir )
 ahf_updater.save_ahf_halos_add(
   snum = int( sys.argv[2] ),
   metafile_dir = sys.argv[3],

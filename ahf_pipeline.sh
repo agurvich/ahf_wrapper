@@ -21,7 +21,7 @@
 
 # What simulation to use, and where to put the output
 snap_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
-out_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3
+out_dir=/scratch/03057/zhafen/m12v_mr_Dec5_2013_3/halo
 
 # What snapshots to use
 snap_num_start=1
