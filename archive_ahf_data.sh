@@ -4,11 +4,14 @@
 ########################################################################
 
 # What simulation to use, and where to put the output
-ahf_data_dir=/scratch/03057/zhafen/m11v_res7000/halo
-archive_dir=${ARCHIVER}:/home1/03057/zhafen/SCRATCH_stamp/m11v_res7000/halo
+ahf_data_dir=/scratch/03057/zhafen/core/m11c_res2100/halo
+archive_dir=${ARCHIVER}:/home1/03057/zhafen/SCRATCH_stamp/core/m11c_res2100/halo
 
- filetypes_to_archive=("snap*parameter" "snap*AHF_halos*" "snap*AHF_mtree" "snap*AHF_mtree_idx" "snap*AHF_profiles" "snap*AHF_substructure" "halo*dat")
- archive_filenames=(parameter.tar AHF_halos.tar AHF_mtree.tar AHF_mtree_idx.tar AHF_profiles.tar AHF_substructure.tar mt_halo_files.tar)
+filetypes_to_archive=("snap*parameter" "snap*AHF_halos*" "snap*AHF_mtree" "snap*AHF_mtree_idx" "snap*AHF_profiles" "snap*AHF_substructure" "halo*dat")
+archive_filenames=(parameter.tar AHF_halos.tar AHF_mtree.tar AHF_mtree_idx.tar AHF_profiles.tar AHF_substructure.tar mt_halo_files.tar)
+
+tar_data=true
+archive_data=true
 
 ########################################################################
 # Start Data Processing
@@ -46,29 +49,35 @@ cd $ahf_data_dir
 # Tar the data
 ########################################################################
 
-echo 
-echo '########################################################################'
-echo Tarring Data
-echo '########################################################################'
+if $tar_data; then
 
-for i in $( seq 0 $(($num_filetypes_to_archive-1)) );
-do
-  tar -cvf ${archive_filenames[$i]} ${filetypes_to_archive[$i]} 
-done
+  echo 
+  echo '########################################################################'
+  echo Tarring Data
+  echo '########################################################################'
+
+  for i in $( seq 0 $(($num_filetypes_to_archive-1)) );
+  do
+    tar -cvf ${archive_filenames[$i]} ${filetypes_to_archive[$i]} 
+  done
+fi
 
 ########################################################################
 # Move the data to the archived location
 ########################################################################
 
-echo 
-echo '########################################################################'
-echo Archiving Data
-echo '########################################################################'
+if $archive_data; then
 
-for i in $( seq 0 $(($num_filetypes_to_archive-1)) );
-do
-  rsync --progress ${archive_filenames[$i]} $archive_dir/
-done
+  echo 
+  echo '########################################################################'
+  echo Archiving Data
+  echo '########################################################################'
+
+  for i in $( seq 0 $(($num_filetypes_to_archive-1)) );
+  do
+    rsync --progress ${archive_filenames[$i]} $archive_dir/
+  done
+fi
 
 ########################################################################
 # Wrap up
