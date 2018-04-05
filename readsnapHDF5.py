@@ -145,6 +145,8 @@ def read_block_single_file(filename, block_name, dim2, parttype=-1, no_mass_repl
                 print("[single] read particles (total) : ", ret_val.shape[0]/dim2)
             if (doubleflag==0):
                 ret_val=ret_val.astype("float32")
+        # Assure that this PartType is in the table before trying to access it.
+        if part_name not in f.root._v_children: continue
         if (f.root._f_get_child(part_name).__contains__(block_name)):
             if (first):
                 data=f.root._f_get_child(part_name)._f_get_child(block_name)[:]
@@ -192,7 +194,7 @@ def read_block(filename, block, parttype=-1, no_mass_replicate=False, verbose=Fa
   filenum = head.filenum
   del head
 
-  if (datablocks.has_key(block)):
+  if (block in datablocks):
         block_name=datablocks[block][0]
         dim2=datablocks[block][1]
         first=True
@@ -266,18 +268,13 @@ def contains_block(filename, tag, parttype=-1, verbose=False):
   for parttype in range(0,6):
         part_name='PartType'+str(parttype)
         if (f.root.__contains__(part_name)):
-                iter = it=datablocks.__iter__()
-                next = iter.next()
-                while (1):
-                        if (verbose):
-                                print("check ", next, datablocks[next][0])
-                        if (f.root._f_get_child(part_name).__contains__(datablocks[next][0])):
-                                if (next.find(tag)>-1):
-                                    contains_flag=True  
-                        try:
-                                next=iter.next()
-                        except StopIteration:
-                                break
+                # check each element of the datablocks dictionary
+                for key in datablocks:
+                    if (verbose):
+                        print("check ", key, datablocks[key][0])
+                    if (f.root._f_get_child(part_name).__contains__(datablocks[key][0])):
+                        if (key.find(tag)>-1):
+                            contains_flag=True  
   f.close() 
   return contains_flag
 
