@@ -37,14 +37,14 @@ for snap_id in snap_id_list:
     rootdir = dir_case
     snapshot = snapshot_dir
   else:
-    print "snap_id="
-    print snap_id,
-    print "not found in",
-    print snap_dir
+    print("snap_id=")
+    print(snap_id,)
+    print("not found in",)
+    print(snap_dir)
     continue
 
-  print "rootdir=",
-  print rootdir
+  print("rootdir=",)
+  print(rootdir)
 
 
   if os.path.exists(rootdir):
@@ -63,4 +63,4 @@ for snap_id in snap_id_list:
                             convert(snapshot, snap_dir, out_dir)
 
   else:
-        print "FILE/PATH DOES NOT EXIST"
+        print("FILE/PATH DOES NOT EXIST")
