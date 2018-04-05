@@ -22,9 +22,9 @@ import tables
 #descriptions of all datablocks -> add datablocks here!
 #TAG:[HDF5_NAME,DIM]
 datablocks = {"POS ":["Coordinates",3], 
-	      "VEL ":["Velocities",3],
-	      "ID  ":["ParticleIDs",1],
-	      "MASS":["Masses",1],
+              "VEL ":["Velocities",3],
+              "ID  ":["ParticleIDs",1],
+              "MASS":["Masses",1],
               "U   ":["InternalEnergy",1],
               "RHO ":["Density",1],
               "VOL ":["Volume",1],
@@ -33,16 +33,16 @@ datablocks = {"POS ":["Coordinates",3],
               "NFAC":["Number of faces of cell",1],
               "NE  ":["ElectronAbundance",1],
               "NH  ":["NeutralHydrogenAbundance",1],
-	      "HSML":["SmoothingLength",1],
+              "HSML":["SmoothingLength",1],
               "SFR ":["StarFormationRate",1],
               "AGE ":["StellarFormationTime",1],
               "Z   ":["Metallicity",1],
-	      "ACCE":["Acceleration",3],
+              "ACCE":["Acceleration",3],
               "VEVE":["VertexVelocity",3],
               "FACA":["MaxFaceAngle",1],              
-	      "COOR":["CoolingRate",1],
+              "COOR":["CoolingRate",1],
               "POT ":["Potential",1],
-	      "MACH":["MachNumber",1]}	
+              "MACH":["MachNumber",1]}  
 
 ########################### 
 #CLASS FOR SNAPSHOT HEADER#
@@ -53,12 +53,12 @@ class snapshot_header:
     if os.path.exists(filename):
         curfilename=filename
     elif os.path.exists(filename+".hdf5"):
-    	curfilename = filename+".hdf5"
+        curfilename = filename+".hdf5"
     elif os.path.exists(filename+".0.hdf5"): 
-	curfilename = filename+".0.hdf5"
-    else:	
-	print "[error] file not found : ", filename
-    	sys.exit()
+        curfilename = filename+".0.hdf5"
+    else:   
+        print("[error] file not found : ", filename)
+        sys.exit()
     
     f=tables.open_file(curfilename)
  
@@ -89,8 +89,8 @@ class snapshot_header:
 def read_block_single_file(filename, block_name, dim2, parttype=-1, no_mass_replicate=False, verbose=False):
 
   if (verbose):
-	  print "[single] reading file           : ", filename   	
-	  print "[single] reading                : ", block_name
+      print("[single] reading file           : ", filename)
+      print("[single] reading                : ", block_name)
       
   head = snapshot_header(filename)
   npart = head.npart
@@ -106,60 +106,60 @@ def read_block_single_file(filename, block_name, dim2, parttype=-1, no_mass_repl
   #read specific particle type 
   if parttype>=0:
         if (verbose):
-        	print "[single] parttype               : ", parttype 
-	if ((block_name=="Masses") & (npart[parttype]>0) & (massarr[parttype]>0)):
-	        if (verbose):
-			print "[single] replicate mass block"	
-		ret_val=np.repeat(massarr[parttype], npart[parttype])
-        else:		
-	  	part_name='PartType'+str(parttype)
-	  	ret_val = f.root._f_get_child(part_name)._f_get_child(block_name)[:]
+            print("[single] parttype               : ", parttype )
+        if ((block_name=="Masses") & (npart[parttype]>0) & (massarr[parttype]>0)):
+            if (verbose):
+                print("[single] replicate mass block"   )
+            ret_val=np.repeat(massarr[parttype], npart[parttype])
+        else:       
+            part_name='PartType'+str(parttype)
+            ret_val = f.root._f_get_child(part_name)._f_get_child(block_name)[:]
         if (verbose):
-        	print "[single] read particles (total) : ", ret_val.shape[0]/dim2
+            print("[single] read particles (total) : ", ret_val.shape[0]/dim2)
 
   #read all particle types
   if parttype==-1:
-	first=True
-	dim1=0
-	for parttype in range(0,6):
-		part_name='PartType'+str(parttype)
-		if (f.root.__contains__(part_name)):
-			if (verbose):
-				print "[single] parttype               : ", parttype 
-				print "[single] massarr                : ", massarr
-				print "[single] npart                  : ", npart
+    first=True
+    dim1=0
+    for parttype in range(0,6):
+        part_name='PartType'+str(parttype)
+        if (f.root.__contains__(part_name)):
+            if (verbose):
+                print("[single] parttype               : ", parttype )
+                print("[single] massarr                : ", massarr)
+                print("[single] npart                  : ", npart)
 
-	        	if ((block_name=="Masses") & (npart[parttype]>0) & (massarr[parttype]>0) & (no_mass_replicate==False)):
-                       		if (verbose):
-                               		print "[single] replicate mass block"
-				if (first):
-			        	data=np.repeat(massarr[parttype], npart[parttype])
-					dim1+=data.shape[0]
-					ret_val=data
-					first=False
-				else:	
-					data=np.repeat(massarr[parttype], npart[parttype])	
-                                        dim1+=data.shape[0]
-                                        ret_val=np.append(ret_val, data)
-        	                if (verbose):
-                	        	print "[single] read particles (total) : ", ret_val.shape[0]/dim2
-                                if (doubleflag==0):
-					ret_val=ret_val.astype("float32")
-			if (f.root._f_get_child(part_name).__contains__(block_name)):
-				if (first):
-					data=f.root._f_get_child(part_name)._f_get_child(block_name)[:]
-					dim1+=data.shape[0]
-					ret_val=data
-					first=False
-				else:
-					data=f.root._f_get_child(part_name)._f_get_child(block_name)[:]
-					dim1+=data.shape[0]
-					ret_val=np.append(ret_val, data)
-                		if (verbose):
-                        		print "[single] read particles (total) : ", ret_val.shape[0]/dim2
+        if ((block_name=="Masses") & (npart[parttype]>0) & (massarr[parttype]>0) & (no_mass_replicate==False)):
+            if (verbose):
+                print("[single] replicate mass block")
+            if (first):
+                data=np.repeat(massarr[parttype], npart[parttype])
+                dim1+=data.shape[0]
+                ret_val=data
+                first=False
+            else:   
+                data=np.repeat(massarr[parttype], npart[parttype])  
+                dim1+=data.shape[0]
+                ret_val=np.append(ret_val, data)
+            if (verbose):
+                print("[single] read particles (total) : ", ret_val.shape[0]/dim2)
+            if (doubleflag==0):
+                ret_val=ret_val.astype("float32")
+        if (f.root._f_get_child(part_name).__contains__(block_name)):
+            if (first):
+                data=f.root._f_get_child(part_name)._f_get_child(block_name)[:]
+                dim1+=data.shape[0]
+                ret_val=data
+                first=False
+            else:
+                data=f.root._f_get_child(part_name)._f_get_child(block_name)[:]
+                dim1+=data.shape[0]
+                ret_val=np.append(ret_val, data)
+            if (verbose):
+                print("[single] read particles (total) : ", ret_val.shape[0]/dim2)
 
-	if ((dim1>0) & (dim2>1)):
-		ret_val=ret_val.reshape(dim1,dim2)
+    if ((dim1>0) & (dim2>1)):
+        ret_val=ret_val.reshape(dim1,dim2)
 
   f.close()
 
@@ -171,10 +171,10 @@ def read_block_single_file(filename, block_name, dim2, parttype=-1, no_mass_repl
 #note: arepo, no_masses arguments just dummies to be compatible with read_block of readsnap for Gadget formats
 def read_block(filename, block, parttype=-1, no_mass_replicate=False, verbose=False):
   if (verbose):
-          print "reading block          : ", block
+      print("reading block          : ", block)
 
   if parttype not in [-1,0,1,2,3,4,5]:
-    print "[error] wrong parttype given"
+    print("[error] wrong parttype given")
     sys.exit()
 
   curfilename=filename+".hdf5"
@@ -185,7 +185,7 @@ def read_block(filename, block, parttype=-1, no_mass_replicate=False, verbose=Fa
     curfilename = filename+".0"+".hdf5"
     multiple_files=True
   else:
-    print "[error] file not found : ", filename
+    print("[error] file not found : ", filename)
     sys.exit()
 
   head = snapshot_header(curfilename)
@@ -197,37 +197,37 @@ def read_block(filename, block, parttype=-1, no_mass_replicate=False, verbose=Fa
         dim2=datablocks[block][1]
         first=True
         if (verbose):
-                print "Reading HDF5           : ", block_name
-                print "Data dimension         : ", dim2
-		print "Multiple file          : ", multiple_files
+            print("Reading HDF5           : ", block_name)
+            print("Data dimension         : ", dim2)
+            print("Multiple file          : ", multiple_files)
   else:
-        print "[error] Block type ", block, "not known!"
+        print("[error] Block type ", block, "not known!")
         sys.exit()
 
 
-  if (multiple_files):	
-	first=True
-	dim1=0
-	for num in range(0,filenum):
-		curfilename=filename+"."+str(num)+".hdf5"
-		if (verbose):
-			print "Reading file           : ", num, curfilename 
-		if (first):
-			data = read_block_single_file(curfilename, block_name, dim2, parttype, verbose)
-			dim1+=data.shape[0]
-			ret_val = data
-			first = False 
-		else:	 
-                        data = read_block_single_file(curfilename, block_name, dim2, parttype, verbose)
-                        dim1+=data.shape[0]
-			ret_val=np.append(ret_val, data)
-                if (verbose):
-                        print "Read particles (total) : ", ret_val.shape[0]/dim2
+  if (multiple_files):  
+    first=True
+    dim1=0
+    for num in range(0,filenum):
+        curfilename=filename+"."+str(num)+".hdf5"
+        if (verbose):
+            print("Reading file           : ", num, curfilename )
+        if (first):
+            data = read_block_single_file(curfilename, block_name, dim2, parttype, verbose)
+            dim1+=data.shape[0]
+            ret_val = data
+            first = False 
+        else:    
+            data = read_block_single_file(curfilename, block_name, dim2, parttype, verbose)
+            dim1+=data.shape[0]
+            ret_val=np.append(ret_val, data)
+        if (verbose):
+            print("Read particles (total) : ", ret_val.shape[0]/dim2)
 
-	if ((dim1>0) & (dim2>1)):
-		ret_val=ret_val.reshape(dim1,dim2)	
+    if ((dim1>0) & (dim2>1)):
+        ret_val=ret_val.reshape(dim1,dim2)  
   else:
-	ret_val=read_block_single_file(curfilename, block_name, dim2, parttype, no_mass_replicate, verbose)
+    ret_val=read_block_single_file(curfilename, block_name, dim2, parttype, no_mass_replicate, verbose)
 
   return ret_val
 
@@ -239,21 +239,21 @@ def list_blocks(filename, parttype=-1, verbose=False):
   
   f=tables.open_file(filename)
   for parttype in range(0,6):
-  	part_name='PartType'+str(parttype)
-        if (f.root.__contains__(part_name)):
-        	print "Parttype contains : ", parttype
-		print "-------------------"
-		iter = it=datablocks.__iter__()
-		next = iter.next()
-		while (1):
-			if (verbose):
-				print "check ", next, datablocks[next][0]
-			if (f.root._f_get_child(part_name).__contains__(datablocks[next][0])):
-  				print next, datablocks[next][0]
-			try:
-				next=iter.next()
-			except StopIteration:
-				break	
+    part_name='PartType'+str(parttype)
+    if (f.root.__contains__(part_name)):
+        print("Parttype contains : ", parttype)
+        print("-------------------")
+        iter = it=datablocks.__iter__()
+        next = iter.next()
+        while (1):
+            if (verbose):
+                print("check ", next, datablocks[next][0])
+            if (f.root._f_get_child(part_name).__contains__(datablocks[next][0])):
+                print(next, datablocks[next][0])
+            try:
+                next=iter.next()
+            except StopIteration:
+                break   
   f.close() 
 
 #################
@@ -270,10 +270,10 @@ def contains_block(filename, tag, parttype=-1, verbose=False):
                 next = iter.next()
                 while (1):
                         if (verbose):
-                                print "check ", next, datablocks[next][0]
+                                print("check ", next, datablocks[next][0])
                         if (f.root._f_get_child(part_name).__contains__(datablocks[next][0])):
                                 if (next.find(tag)>-1):
-					contains_flag=True	
+                                    contains_flag=True  
                         try:
                                 next=iter.next()
                         except StopIteration:
@@ -287,6 +287,3 @@ def contains_block(filename, tag, parttype=-1, verbose=False):
 def check_file(filename):
   f=tables.open_file(filename)
   f.close()
-                                                                                                                                                  
-
-
