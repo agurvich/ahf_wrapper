@@ -1,7 +1,6 @@
 import os
 import sys
 import subprocess
-import string
 from HDF5converter import convert
 import pdb
 
@@ -57,7 +56,7 @@ for snap_id in snap_id_list:
 
                             # Divide the filename up into the part we want copied and the part we don't want copied.
                             full_filename = root + '/' + file
-                            split_filename = string.split(full_filename, '/')
+                            split_filename = full_filename.split('/')
                             snapshot = '{}/{}'.format(split_filename[-2], split_filename[-1])
 
                             convert(snapshot, snap_dir, out_dir)
