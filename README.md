@@ -9,7 +9,7 @@ It uses a significant amount of code written by Sasha Muratov.
 2. Move into the AHF subdir (e.g. `ahf-v1.0-069`), and make AHF (i.e. `make clean; make`).
 3. Clone my general analysis repository Galaxy Diver (located at git@bitbucket.org:zhafen/galaxy_diver.git), and add it to your path.
 4. If you want the halo concentration, then you'll need to install [Colossus](http://www.benediktdiemer.com/code/colossus/)
-5. Make sure you have numpy, scipy, matplotlib installed.  Additionally install python packages: h5py, tables, constants, and colossus.
+5. Make sure you have numpy, scipy, matplotlib installed.  Additionally install python packages: h5py, tables, constants, and pandas.
 
 In the future, I hope to make this installation process more automatic.
 
