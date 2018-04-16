@@ -29,14 +29,14 @@ for snap_id in snap_id_list:
   elif os.access(dir_case, os.F_OK):
     rootdir = dir_case
   else:
-    print "snap_id="
-    print snap_id,
-    print "not found in",
-    print snap_dir
+    print("snap_id=")
+    print(snap_id,)
+    print("not found in",)
+    print(snap_dir)
     continue
 
-  print "rootdir=",
-  print rootdir
+  print("rootdir=",)
+  print(rootdir)
 
   AMIGA_input_str = "[AHF]\n"
   AMIGA_input_str = AMIGA_input_str + "# (stem of the) filename from which to read the data to be analysed\n"
@@ -128,8 +128,8 @@ for snap_id in snap_id_list:
 
   out_str = " > " + snap_dir + "/AMIGA_" + snap_id_str + ".out 2>&1 &"
 
-  print "cmd_str=",
-  print cmd_str
+  print("cmd_str=",)
+  print(cmd_str)
 
   # I now do this directly in bash.
   #os.system(cmd_str + out_str)

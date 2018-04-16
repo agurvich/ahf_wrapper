@@ -14,4 +14,4 @@ for i in range(min_halo_rank, max_halo_rank+1):
   f.write(str(i) + "\n")  
 f.close()
 
-print 'Done making {}!'.format(Mtrace_ID_file)
+print('Done making {}!'.format(Mtrace_ID_file))

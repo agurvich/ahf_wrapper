@@ -37,8 +37,8 @@ for file in onlyfiles:
     # Filter halo files on snap_id.
     snap_id_str_file = file[4:7]
 
-    #print "snap_id_str_file=",
-    #print snap_id_str_file
+    #print("snap_id_str_file=",)
+    #print(snap_id_str_file)
 
     if snap_id_str_file in snap_id_str_list:
       halo_files.append(file)
@@ -54,4 +54,4 @@ for file in halo_files:
   f.write(file[:-6] + "\n")  
 f.close()
 
-print 'Done making {}!'.format(MTSnaps_file)
+print('Done making {}!'.format(MTSnaps_file))
