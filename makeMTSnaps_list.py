@@ -17,13 +17,7 @@ MTSnaps_file = "MTSnaps.txt"
 snap_id_str_list = []
 for i in range(0, len(snap_id_list)):
   snap_id = snap_id_list[i] 
-  snap_id_str = str(snap_id)
-
-  if len(snap_id_str)<3:
-    snap_id_str = "0" + snap_id_str
-  if len(snap_id_str)<3:
-    snap_id_str = "0" + snap_id_str
-
+  snap_id_str = "%03d" % snap_id
   snap_id_str_list.append(snap_id_str)
 
 # Extract names of all .AHF_halos files and sort them in order of
@@ -32,7 +26,7 @@ onlyfiles = [ f for f in listdir(snap_dir) if isfile(join(snap_dir,f)) ]
 
 halo_files = []
 for file in onlyfiles:
-  if ".AHF_halos" in file:
+  if file.endswith(".AHF_halos"):
     
     # Filter halo files on snap_id.
     snap_id_str_file = file[4:7]
