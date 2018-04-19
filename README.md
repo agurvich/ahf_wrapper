@@ -33,6 +33,8 @@ To run AHF, simply consider making the following edits to `ahf_pipeline.sh`, and
 ### Troubleshooting ###
 If the pipeline fails, the most common issue is a corrupted snapshot, so check the raw data. Many snapshots directories often contain hidden files (e.g. `.snapshot_014.1.hdf5.aKDJLd`), which can often also cause problems. The pipeline can also run out of memory if you have too many processes running at once, try reducing n_proc and restarting.
 
+Another common problem are unbalanced snapshot sizes. For example, the original snapshot output by the simulation can sometimes produce sub-snapshots >15GB in size. This *will* break the pipeline. To get around this, I've written a function that takes the original hdf5 files, loads the snapshot, then saves the data in snapshots with an even file size. This function is part of galaxy_diver, in particular it is `galaxy_diver.utils.hdf5_wrapper.copy_snapshot()`.
+
 ### Who do I talk to? ###
 
 Contact Zach Hafen (zachary.h.hafen@gmail.com) with any questions or problems.
