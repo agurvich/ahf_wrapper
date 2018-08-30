@@ -15,10 +15,10 @@ import galaxy_diver.utils.hdf5_wrapper as hdf5_wrapper
 ########################################################################
 
 # Get the directory the AHF data is in
-sdir = '/scratch/projects/xsede/GalaxiesOnFIRE/m12m_res7000/output'
-copy_dir = '/scratch/03057/zhafen/m12m_res7000/output'
+sdir = '/scratch/projects/xsede/GalaxiesOnFIRE/core/m12i_res880/output'
+copy_dir = '/scratch/03057/zhafen/m12i_res880/output'
 
-snums = [ 55, 76, 82, 129, 162, ]
+snums = [ 172, ]
 
 ########################################################################
 # Copy and redistribute
