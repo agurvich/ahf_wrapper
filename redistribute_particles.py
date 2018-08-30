@@ -8,7 +8,7 @@
 
 import sys
 
-import galaxy_diver.utils.hdf5_wrapper as hdf5_wrapper
+import galaxy_dive.utils.hdf5_wrapper as hdf5_wrapper
 
 ########################################################################
 # Input Paramaters

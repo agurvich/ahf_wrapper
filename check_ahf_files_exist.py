@@ -9,7 +9,7 @@
 import os
 import sys
 
-import galaxy_diver.read_data.ahf as read_ahf
+import galaxy_dive.read_data.ahf as read_ahf
 
 ########################################################################
 # Input Paramaters

@@ -9,7 +9,7 @@ This is primarily designed for getting the analytic concentration.
 
 import sys
 
-import galaxy_diver.analyze_data.ahf_updater as analyze_ahf
+import galaxy_dive.analyze_data.ahf_updater as analyze_ahf
 
 ########################################################################
 # Input Paramaters
