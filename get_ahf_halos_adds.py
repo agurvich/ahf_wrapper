@@ -29,7 +29,7 @@ mass_radii_kwargs = {
 ########################################################################
 
 ahf_updater = analyze_ahf.HaloUpdater( sdir )
-ahf_updater.save_ahf_halos_add(
+ahf_updater.save_halos_add(
     snum = int( sys.argv[2] ),
     metafile_dir = sys.argv[3],
     simulation_data_dir = sys.argv[4],

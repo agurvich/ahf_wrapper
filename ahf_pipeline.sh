@@ -1,14 +1,14 @@
 #!/bin/bash
 
-#SBATCH --job-name=ahf_m12w_res7100
+#SBATCH --job-name=ahf_m12m
 #SBATCH --partition=skx-normal
 ## Stampede node has 16 processors & 32 GB
 ## Except largemem nodes, which have 32 processors & 1 TB
 #SBATCH --nodes=1
 #SBATCH --ntasks=16
-#SBATCH --time=4:00:00
-#SBATCH --output=/scratch/03057/zhafen/metal_diffusion/m12w_res7100/halo/jobs/%j.out
-#SBATCH --error=/scratch/03057/zhafen/metal_diffusion/m12w_res7100/halo/jobs/%j.err
+#SBATCH --time=6:00:00
+#SBATCH --output=/scratch/05779/tg850788/m12m_res57000/output/AHF/jobs/%j.out
+#SBATCH --error=/scratch/05779/tg850788/m12m_res57000/output/AHF/jobs/%j.err
 #SBATCH --mail-user=zhafen@u.northwestern.edu
 #SBATCH --mail-type=begin
 #SBATCH --mail-type=fail
@@ -20,14 +20,16 @@
 ########################################################################
 
 # What simulation to use, and where to put the output
-snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metal_diffusion/m12w_res7100/output
-out_dir=/scratch/03057/zhafen/metal_diffusion/m12w_res7100/halo
+#snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metal_diffusion/m12m_res57000/output
+#out_dir=/scratch/05779/tg850788/m12m_res57000_orig/AHF
+snap_dir=/scratch/05779/tg850788/m12m_res57000/output
+out_dir=/scratch/05779/tg850788/m12m_res57000/output/AHF
 
 # Where are the metafiles (e.g. the file containing the snapshot times located)?
-metafile_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metal_diffusion/m12w_res7100
+metafile_dir=/scratch/05779/tg850788/m12m_res57000
 
 # What snapshots to use
-snap_num_start=1
+snap_num_start=0
 snap_num_end=600
 snap_step=1
 
@@ -39,7 +41,7 @@ convert_snapshots=false
 find_halos=false
 find_merger_tree=false
 find_merger_trace=false
-get_ahf_halos_adds=false
+get_ahf_halos_adds=true
 smooth_halos=true
 
 ########################################################################
