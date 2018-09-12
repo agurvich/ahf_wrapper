@@ -20,8 +20,6 @@
 ########################################################################
 
 # What simulation to use, and where to put the output
-#snap_dir=/scratch/projects/xsede/GalaxiesOnFIRE/metal_diffusion/m12m_res57000/output
-#out_dir=/scratch/05779/tg850788/m12m_res57000_orig/AHF
 snap_dir=/scratch/05779/tg850788/m12m_res57000/output
 out_dir=/scratch/05779/tg850788/m12m_res57000/output/AHF
 
@@ -29,7 +27,9 @@ out_dir=/scratch/05779/tg850788/m12m_res57000/output/AHF
 metafile_dir=/scratch/05779/tg850788/m12m_res57000
 
 # What snapshots to use
-snap_num_start=0
+# snap_snum_start should not usually be lower than 1, because AHF handles
+# snapshot 0 weirdly and there aren't usually halos there anyways
+snap_num_start=1
 snap_num_end=600
 snap_step=1
 
