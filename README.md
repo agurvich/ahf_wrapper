@@ -6,7 +6,7 @@ It uses a significant amount of code written by Sasha Muratov.
 ### Set Up ###
 
 1. Clone the repository with `git clone git@bitbucket.org:zhafen/ahf_wrapper.git`.
-2. Move into the AHF subdir (e.g. `ahf-v1.0-069`), and make AHF (i.e. `make clean; make`).
+2. Move into the AHF subdir (e.g. `ahf-v1.0-069`), and make AHF (i.e. `make veryclean; make AHF MergerTree MergerTrace`).
 3. Install my general analysis repository [galaxy-dive](https://github.com/zhafen/galaxy-dive) (`pip install galaxy-dive`).
 
 In the future, I hope to make this installation process more automatic.
